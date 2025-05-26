@@ -1,7 +1,7 @@
 //checking a string for pallindrome using recursion  
 public class p9 {
     public static void main (String [] args ){
-    String s1 = "kayaky";
+    String s1 = "kayak";
     boolean result = check_func(0, s1);
     System.out.println(s1 + " is " + (result ? "a pallindrome " : "not a pallindrome "));
 
