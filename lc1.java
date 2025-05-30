@@ -21,10 +21,12 @@ public class lc1 {
             System.out.print(x + " ");
         }
         for(int i = 0; i < arr.length-1;i++){
-            if(arr[i] > arr[i+1]){
-                int j = arr[i];
-                arr[i+1] = arr[i];
-                arr[i] = j;
+            for(int j = i+1 ; j<arr.length ;j++){
+                if(arr[i] > arr[j]){
+                    int x =arr[j];
+                    arr[j] =arr[i];
+                    arr[i] = x;
+                }
             }
         }
         System.out.println(".......");
