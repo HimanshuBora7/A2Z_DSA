@@ -26,7 +26,7 @@ public class left_rotate_d {
         System.out.print(x + " ");
     }
     int d = 4;
-    d= d%arr.length;
+    d= d%arr.length;  
     shift(arr, d);
     System.out.println("with shifting ");
     for(int x : arr){
