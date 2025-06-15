@@ -18,7 +18,7 @@ public class zero {
             System.out.print(x + " ");
         }
 
-    int j = 0;
+    
     for(int x : arr){
         if(x!= 0){
         temp.add(x);
@@ -36,3 +36,4 @@ public class zero {
         }
     }
 }
+
