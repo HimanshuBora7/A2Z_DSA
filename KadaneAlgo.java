@@ -3,7 +3,9 @@
 public class KadaneAlgo {
     public static void main (String [] args ){
         int [] arr = { -2 ,-3,4,-1,-2,1,5,-3};
-        int ans = brute_force(arr);
+        // int ans = brute_force(arr);
+
+        int ans = better_way(arr);
 
         System.out.println("answer is "+ ans);
     }
@@ -28,5 +30,32 @@ public class KadaneAlgo {
         }
         return max;
     }
+   //better approach would be removing the 3rd loop and adding the new element j brings to the cumulative sum 
+
+   public static int better_way(int [] arr){
+    int max = Integer.MIN_VALUE;
+    for(int i = 0 ; i < arr.length ; i++){
+        int cummul_sum = 0 ;
+        for(int j = i ; j < arr.length ; j++){
+         cummul_sum+=arr[j];
+         if(cummul_sum > max){
+            max = cummul_sum;
+         }
+        }
+    }
+    return max;
+   }
+
+
+
+
+
+
+
+
+
+
+
+
 }
  
