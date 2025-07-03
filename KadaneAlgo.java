@@ -6,9 +6,15 @@ public class KadaneAlgo {
         // int ans = brute_force(arr);
 
         // int ans = better_way(arr);
-        int ans = kadane(arr);
+        int [] ans = kadane(arr);
 
-        System.out.println("answer is " + ans);
+        System.out.println("maximum sum is " + ans[0]);
+
+        System.out.println("the subarray which is producing the maximum sum is " + " start : " + ans[1] + " end : "+ ans[2]);
+
+        for(int i= ans[1] ; i <= ans[2] ; i++ ){
+          System.out.print(arr[i] + " ");
+        }
     }
 
     // brute force approach by trying out all the subsequence using three loops
@@ -55,20 +61,47 @@ public class KadaneAlgo {
     // result in decrement
     // with all this we keep on checking the cumulative sum with our max variable
 
-    public static int kadane(int[] arr) {
+
+    // what if we are asked to print the sub array also 
+
+    // we observe that whenever the subarray starts , it starts with 0 so we make two new variable ans_start ( which will track the starting index ) n this will be initialised when the sum becomes zero
+    
+    //and second variable would be ans_wnd which track the the end of the subarray which would be when the max and cumulative sum are swapped 
+
+
+    public static int[] kadane(int[] arr) {
         int max = Integer.MIN_VALUE;
+        
+        int ans_start = -1;
+        int ans_end = -1;
+        int start = -1;
+        
         int cummul_sum = 0;
         for (int i = 0; i < arr.length; i++) {
+            
+            if(cummul_sum == 0){
+                start = i;
+            }
             cummul_sum += arr[i];
+            
+            //this piece of code is to track the indexed of maximum sum producing sub array 
 
+            if(cummul_sum == 0){
+                start = i;
+            }
+        
             if (cummul_sum > max) {
                 max = cummul_sum;
+                ans_end = i;
+                ans_start = start;
             }
             if (cummul_sum < 0) {
                 cummul_sum = 0;
             }
         }
-        return max;
+        int [] result = {max,ans_start,ans_end};
+
+        return result;
     }
 
 }
