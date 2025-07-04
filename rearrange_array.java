@@ -15,7 +15,9 @@ public class rearrange_array {
         System.out.print(x + " ");
     }
 
-    int [] arr2 = brute_force(arr);
+    // int [] arr2 = brute_force(arr);
+
+    int [] arr2 = optimal_approach(arr);
 
     System.out.println("rearranged array : ");
     for(int x : arr2){
@@ -55,6 +57,27 @@ public class rearrange_array {
     }
     return arr;
   }
-  
+   
+ // optimal approach to solve this problem 
+ // as we know positive elements will go to even positions 
+ // so we iterate the original array and in new array we go on placing 
+ // the positive ones at even position and -ve ones at odd position 
 
+ public static int [] optimal_approach(int [] arr ){
+    int [] newarr = new int[arr.length];
+    
+    int i = 0 ;
+    int j = 1;
+    for(int x : arr ){
+        if(x > 0 ){
+        newarr[i] = x;
+        i +=2;
+        }
+        else{
+            newarr[j] = x;
+            j +=2;
+        }
+    }
+    return newarr;
+ }
 }
