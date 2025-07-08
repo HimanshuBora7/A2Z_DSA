@@ -112,7 +112,7 @@ public class next_permutation {
                            // get the 1st order we just to have to reverse the array
             int z = arr[n - 1];
 
-            for (int i = 0; i < n - 1; i++) {
+            for (int i = 0; i < n - 2; i++) {
                 arr[i + 1] = arr[i];
             }
             arr[0] = z;
