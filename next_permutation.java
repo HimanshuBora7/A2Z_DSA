@@ -14,7 +14,10 @@
 
 public class next_permutation {
     public static void main(String[] args) {
-        int[] arr = { 2, 1, 5, 4, 3, 0, 0 };
+        // int[] arr = { 2, 1, 5, 4, 3, 0, 0 };
+        // int[] arr = { 1,2,3 };
+        // int[] arr = { 3,2,1 };
+        int[] arr = { 2,3,1 };
         System.out.println("original array ");
         for (int x : arr) {
             System.out.print(x + " ");
@@ -104,18 +107,21 @@ public class next_permutation {
         for (int i = n - 2; i >= 0; i--) {
             if (arr[i] < arr[i + 1]) {
                 index = i;
+                break;
             }
         }
-        // System.out.println("\ngot breakpoint at "+ index + " element : " +
+        System.out.println("\ngot breakpoint at "+ index + " element :");
         // arr[index]);
         if (index == -1) { // it means we have reached the last order of the permuatation at this point to
                            // get the 1st order we just to have to reverse the array
-            int z = arr[n - 1];
+            
 
-            for (int i = 0; i < n - 1; i++) {
-                arr[i + 1] = arr[i];
+            for (int i = 0; i < n/2 ; i++) {
+                int temp = arr[n-i-1];
+                arr[n-i-1] = arr[i];
+                 arr[i] = temp;
             }
-            arr[0] = z;
+            
         }
 
         else {
