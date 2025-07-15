@@ -12,29 +12,34 @@ public class set_matrix_zeros {
         // Scanner sc = new Scanner(System.in);
 
         // for (int i = 0; i < 4; i++) {
-        //     for (int j = 0; j < 4; j++) {
+        // for (int j = 0; j < 4; j++) {
 
-        //         System.out.printf("enter data for arr [%d][%d]", i, j);
-        //         arr[i][j] = sc.nextInt();
-        //     }
+        // System.out.printf("enter data for arr [%d][%d]", i, j);
+        // arr[i][j] = sc.nextInt();
+        // }
         // }
         // sc.close();
 
-        int [] [] arr = {
-                          {1,1,1,1},
-                          {1,0,0,1},
-                          {1,1,0,1},
-                          {1,1,1,1},
-                        };
+        // int[][] arr = {
+        // { 1, 1, 1, 1 },
+        // { 1, 0, 0, 1 },
+        // { 1, 1, 0, 1 },
+        // { 1, 1, 1, 1 },
+        // };
 
+        int[][] arr = {
+                { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 }
+        };
 
         System.out.println("Array created ");
-        print_Array(arr, 4, 4);
+        print_Array(arr, arr.length, arr[0].length);
 
-        brute_force_approach(arr, 4, 4);
+        // brute_force_approach(arr, 4, 4);
+
+        better_approach(arr);
 
         System.out.println("Modified array");
-        print_Array(arr, 4, 4);
+         print_Array(arr, arr.length, arr[0].length);
 
     }
 
@@ -91,20 +96,62 @@ public class set_matrix_zeros {
             }
 
         }
-        //   System.out.println("modified - 1 array ");
-        //     print_Array(arr, 4,4);
-            // now we have to iterate the matrix again to mark it as zero
+        // System.out.println("modified - 1 array ");
+        // print_Array(arr, 4,4);
+        // now we have to iterate the matrix again to mark it as zero
 
-            for (int u = 0; u < rows; u++) {
-                for (int v = 0; v < columns; v++) {
-                    if (arr[u][v] == -1) {
-                        arr[u][v] = 0;
-                    }
+        for (int u = 0; u < rows; u++) {
+            for (int v = 0; v < columns; v++) {
+                if (arr[u][v] == -1) {
+                    arr[u][v] = 0;
                 }
-
             }
+
+        }
     }
+    /*
+     * Use of -1 as a Marker: If the matrix contains -1 as a valid value, marking
+     * elements as -1 could lead to incorrect results.
+     * Edge Cases: The code doesn't check for null or empty matrices, which could
+     * cause an ArrayIndexOutOfBoundsException when accessing matrix[0].length or
+     * other elements.
+     * Inefficiency: The code modifies the matrix twice (first to -1, then to 0),
+     * which can be optimized by using the matrix's first row and column as markers.
+     * Potential Overwrite Issue: When setting rows and columns to -1, it might
+     * overwrite other 0s, affecting subsequent checks.
+     * 
+     */
+    // better approach ~ reducing time complexity from O(n^3) to O(n^2)(vch is
+    // minimum we can achive in a 2d matrix )
+    // if an element is zero then that entire row and column needs to be converted
+    // into 0 so we make two new arrays
+    // column array and row array of size m and n respectively to track vch rows and
+    // columns needs to be converted to
 
+    public static void better_approach(int[][] arr) {
 
+        int m = arr.length; // number of rows
+        int n = arr[0].length; // number of columns
+
+        int[] row_array = new int[m];
+        int[] column_array = new int[n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (arr[i][j] == 0) {
+                    row_array[i] = 1;
+                    column_array[j] = 1;
+                }
+            }
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (row_array[i] == 1 || column_array[j] == 1) {
+                    arr[i][j] = 0;
+                }
+            }
+        }
+
+    }
 
 }
