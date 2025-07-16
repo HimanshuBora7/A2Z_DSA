@@ -20,23 +20,25 @@ public class set_matrix_zeros {
         // }
         // sc.close();
 
-        // int[][] arr = {
-        // { 1, 1, 1, 1 },
-        // { 1, 0, 0, 1 },
-        // { 1, 1, 0, 1 },
-        // { 1, 1, 1, 1 },
-        // };
-
         int[][] arr = {
-                { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 }
+        { 1, 1, 1, 1 },
+        { 1, 0, 0, 1 },
+        { 1, 1, 0, 1 },
+        { 1, 1, 1, 1 },
         };
+
+        // int[][] arr = {
+        //         { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 }
+        // };
 
         System.out.println("Array created ");
         print_Array(arr, arr.length, arr[0].length);
 
         // brute_force_approach(arr, 4, 4);
 
-        better_approach(arr);
+        // better_approach(arr);
+
+         optimal_approach(arr);
 
         System.out.println("Modified array");
          print_Array(arr, arr.length, arr[0].length);
@@ -153,5 +155,57 @@ public class set_matrix_zeros {
         }
 
     }
+
+    //optimising the space complexity by placing those extra rows and columns we created to track inside the array itself
+    
+    public static void optimal_approach(int [][]  arr ){
+        // int [] row_arry => arr[][0]
+        // int [] column_array = arr[0][]
+
+        int col = 1; // for tracking j == 0  column 
+        
+        //step1 : traverse the matrix and mark 1st row and column accordingly
+
+        for(int i=0;i<arr.length;i++){
+            for(int j = 0 ; j < arr[0].length ; j++){
+                if(arr[i][j] == 0){
+                    arr[i][0] = 0;
+
+                    if( j!= 0){
+                        arr[0][j] = 0;
+                    }
+                    else{
+                        col = 0;
+                    }
+                }
+            }
+        }
+        // step 2 mark with 0 from 1,1, to n-1 and m -1
+
+        for(int i = 1 ; i < arr.length ; i++){
+            for(int j = 1 ; j < arr[0].length ; j++){
+                if(arr[i] [j] != 0 ){
+                    if(arr[0][j] == 0 || arr[i][0] == 0){
+                        arr[i][j] = 0;
+                    }
+                }
+            }
+        }
+
+        // step 3: finally mark the 1st column and then 1st row 
+
+        if(arr[0][0] == 0){
+            for(int j=0 ; j < arr[0].length ; j++){
+                arr[0][j] =0;
+            }
+        }
+        if(col == 0){
+            for(int i = 0 ; i < arr.length ; i++){
+                arr[i][0] =0;
+            }
+        }
+
+    }
+
 
 }
