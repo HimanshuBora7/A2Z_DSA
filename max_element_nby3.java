@@ -130,6 +130,7 @@ public class max_element_nby3 {
         for (int y : arr) {
             if (y == el2) {
                 counter3++;
+                int x = Integer.MIN_VALUE
             }
             if (counter3 > arr.length / 3) {
                 result.add(y);
