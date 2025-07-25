@@ -10,9 +10,10 @@ public class max_element_nby3 {
 
         int[] arr = { 1, 1, 1, 3, 3, 2, 2, 2 };
         // List<Integer> output = brute_force(arr);
-        List<Integer> output = better_approach(arr);
+        // List<Integer> output = better_approach(arr);
+        List<Integer> output = optimal_Approach(arr);
 
-        System.out.println("Result ");
+        System.out.print("Result ");
         for (int x : output) {
             System.out.print(x + " ");
         }
@@ -79,5 +80,63 @@ public class max_element_nby3 {
         }
         return output;
     }
+    // optimal approach to solve this probelm would be modifying the moores algo we
+    // studied for finding the element occuring > N/2
+    // for N/3 here we know that at max only two elements can exceed N/3 count so we
+    // store them in el1 and el2 vch both should be unique
+    // and check what not gets cancelled
+    // so at the end we get two dominating elements from the array now in last step
+    // we have to check if their occurrence exceeds N/3 count or not
 
+    public static List<Integer> optimal_Approach(int[] arr) {
+        int counter1 = 0; // to track the occurence of element 1
+        int counter2 = 0; // to track the occurence of element 2
+
+        int el1 = -1; // holding element 1
+        int el2 = -1; // holding element 2
+
+        for (int i = 0; i < arr.length; i++) {
+            if (counter1 == 0 && arr[i] != el2) {
+                counter1 = 1;
+                el1 = arr[i];
+            } else if (counter2 == 0 && arr[i] != el1) {
+                counter2 = 1;
+                el2 = arr[i];
+            } else if (el1 == arr[i]) {
+                counter1++;
+            } else if (el2 == arr[i]) {
+                counter2++;
+            } else {
+                counter1--;
+                counter2--;
+            }
+        }
+        // at the end of this we have two dominating elements el1 and el2
+        // now we have to make sure that their occurence is more than n/3
+
+        List<Integer> result = new ArrayList<>();
+
+        int counter5 = 0;
+        for (int x : arr) {
+            if (x == el1) {
+                counter5++;
+            }
+            if (counter5 > arr.length / 3) {
+                result.add(x);
+                break;
+            }
+        }
+        int counter3 = 0;
+        for (int y : arr) {
+            if (y == el2) {
+                counter3++;
+            }
+            if (counter3 > arr.length / 3) {
+                result.add(y);
+                break;
+            }
+        }
+        return result;
+
+    }
 }
