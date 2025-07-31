@@ -9,7 +9,10 @@ public class three_sum {
         // List<Integer> output = brute_force(arr);
         int n = arr.length;
 
-        List<List<Integer>> output = brute_force_2(n, arr);
+        // List<List<Integer>> output = brute_force_2(n, arr);
+        // List<List<Integer>> output = better_solution(n, arr);
+
+        List<List<Integer>> output = optimal_approach(n, arr);
 
         for (List<Integer> it : output) {
             System.out.print("[");
@@ -67,4 +70,76 @@ public class three_sum {
         List<List<Integer>> ans = new ArrayList<>(st);
         return ans;
     }
+
+    public static List<List<Integer>> better_solution(int n, int[] arr) {
+
+        Set<List<Integer>> st = new HashSet<>();
+
+        for (int i = 0; i < n; i++) {
+            Set<Integer> hashset = new HashSet<>();
+            for (int j = i + 1; j < n; j++) {
+                int third = -(arr[i] + arr[j]);
+
+                if (hashset.contains(third)) {
+                    List<Integer> temp = Arrays.asList(arr[i], arr[j], third);
+                    temp.sort(null);
+                    st.add(temp);
+                }
+                hashset.add(arr[j]);
+            }
+        }
+
+        // store the set elements in the answer
+        List<List<Integer>> ans = new ArrayList<>(st);
+        return ans;
+
+    }
+
+    // optimal approach is to use two pointer approach kind of thing
+    // but to apply two pointer approach we need a sorted array first
+    // then we declare threen variables i j and k
+    // i at initial position j at i+1 and k at the very end
+    // we take sum of i , j and k
+    // compare it with zero
+    // if it exceeds we try to dec the sum by reducing k
+    // if it is deficiet of zero we add some weight by moving j
+    // we stop if j and k crosses each other
+    // and update i to new index vch wld be holding new uqiue element
+
+    public static List<List<Integer>> optimal_approach(int n, int[] arr) {
+
+        Arrays.sort(arr);
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+
+            if (i != 0 && arr[i] == arr[i - 1]) {
+                continue;
+            }
+
+            int k = n - 1;
+            int j = i + 1;
+            while (j < k) {
+
+                int sum = arr[i] + arr[j] + arr[k];
+                if (sum < 0) {
+                    j++;
+                } else if (sum > 0) {
+                    k--;
+                } else {
+                    List<Integer> temp = Arrays.asList(arr[i], arr[j], arr[k]);
+                    result.add(temp);
+                    j++;
+                    k--;
+
+                    while (j < k && arr[j] == arr[j - 1]) {
+                        j++;
+                    }
+                    while (j < k && arr[k] == arr[k + 1])
+                        k--;
+                }
+            }
+        }
+        return result;
+    }
+
 }
