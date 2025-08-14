@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class mergesort {
     public static void main(String[] args) {
-        int[] arr = { 2, 7, 1, 5, 6 };
+        // int[] arr = { 2, 7, 1, 5, 6 };
+        int[] arr = { 8, 7, 6, 5, 4, 3, 2, 1 };
         System.out.println("Before sorting array: ");
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
@@ -41,12 +42,12 @@ public class mergesort {
                 right++;
             }
         }
-            while (left <= mid) {
-                temp.add(arr[left]);
-                left++;
+        while (left <= mid) {
+            temp.add(arr[left]);
+            left++;
 
-            }
-        
+        }
+
         while (right <= high) {
             temp.add(arr[right]);
             right++;
