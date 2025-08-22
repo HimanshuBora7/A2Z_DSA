@@ -2,7 +2,8 @@ import java.util.*;
 
 public class reverse_pair2 {
     public static void main(String[] args) {
-        int arr[] = { 4, 1, 2, 3, 1 };
+        // int arr[] = { 4, 1, 2, 3, 1 };
+        int arr[] = { 2, 4, 3, 5, 1 };
         int n = 5;
         int count = sol(arr, n);
         System.out.println("output " + count);
