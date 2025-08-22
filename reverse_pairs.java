@@ -6,9 +6,11 @@ import java.util.*;
 public class reverse_pairs {
     public static void main(String[] args) {
         // int[] arr = { 1, 3, 2, 3, 1 };
-        int[] arr = { 3, 2, 1, 4 };
+        int[] arr = { 2, 4, 3, 5, 1 };
 
-        // int result = brute_force(arr);
+        // int[] arr = { 3, 2, 1, 4 };
+
+        // int result = brute_force(arr);*
         int result = optimal_approach(arr);
 
         System.out.println("number of reverse pair int the array : " + result);
@@ -39,8 +41,8 @@ public class reverse_pairs {
     // refer to notebook for theory
 
     public static int optimal_approach(int[] arr) {
-        int count = 0;
-        count = mergersort(arr, 0, arr.length - 1);
+
+        int count = mergersort(arr, 0, arr.length - 1);
         return count;
 
     }
@@ -57,16 +59,15 @@ public class reverse_pairs {
         count += merge(arr, low, mid, high);
         return count;
     }
-
     public static int merge(int[] arr, int low, int mid, int high) {
         int left = low;
         int right = mid + 1;
 
         int count = 0;
-        int j = right;
+        int j = mid + 1;
         for (int i = left; i <= mid; i++) {
 
-            while (j <= right && arr[i] > 2 * arr[j]) {
+            while (j <= high && arr[i] > 2 * arr[j]) {
                 j++;
             }
             count += j - (mid + 1);
