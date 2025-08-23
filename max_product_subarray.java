@@ -3,8 +3,9 @@
 public class max_product_subarray {
     public static void main(String[] args) {
         // int arr[] = { 1, 2, 3, 4, 5, 0 };
-        int arr[] = { 1, 2, -3, 0, -4, -5 };
-        int output = better_approach(arr);
+        int arr[] = { 2, 3, -2, 4 };
+        // int output = better_approach(arr);
+        int output = optimal_approach(arr);
         System.out.println("output: " + output);
 
     }
@@ -28,5 +29,25 @@ public class max_product_subarray {
             }
         }
         return max_product;
+    }
+    // optimal approach
+    // taking maximum of prefix product and suffix product
+
+    public static int optimal_approach(int[] arr) {
+        int n = arr.length;
+
+        int pre = 1, suff = 1;
+        int output = Integer.MIN_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            if (pre == 0)
+                pre = 1;
+            if (suff == 0)
+                suff = 1;
+            pre *= arr[i];
+            suff *= arr[n - i - 1];
+            output = Math.max(output, Math.max(pre, suff));
+        }
+        return output;
     }
 }
