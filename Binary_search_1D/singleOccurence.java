@@ -3,9 +3,10 @@ package Binary_search_1D;
 //   Given an array of N integers. Every number in the array except one appears twice. Find the single number in the array.
 public class singleOccurence {
     public static void main(String[] args) {
-        int arr[] = { 1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 6 };
+        int arr[] = { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6 };
         int result = brute_force(arr);
-        System.out.println("the number which has occured only once: " + result);
+        int result1 = optimal_approach(arr);
+        System.out.println("the number which has occured only once: " + result1);
     }
 
     public static int brute_force(int[] arr) {
@@ -26,6 +27,39 @@ public class singleOccurence {
             } else {
                 if (arr[i] != arr[i + 1] && arr[i] != arr[i - 1]) {
                     return arr[i];
+                }
+            }
+        }
+        return -1;
+    }
+
+    // optimal approach ~ using binary search
+
+    public static int optimal_approach(int[] arr) {
+        // to avoid edge cases
+        int low = 1;
+        int n = arr.length - 1;
+        int high = n - 1;
+        if (arr[0] != arr[1])
+            return arr[0];
+        if (arr[n] != arr[n - 1])
+            return arr[n];
+
+        while (low <= high) {
+            int mid = (high + low) / 2;
+            if (arr[mid] != arr[mid + 1] && arr[mid] != arr[mid - 1]) {
+                return arr[mid];
+            } else if (arr[mid] == arr[mid - 1]) {
+                if ((mid - 1) % 2 == 0) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            } else {
+                if ((mid + 1) % 2 == 0) {
+                    high = mid - 1;
+                } else {
+                    low = mid + 1;
                 }
             }
         }
