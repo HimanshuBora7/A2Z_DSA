@@ -9,7 +9,8 @@ public class kokoBanana {
         int arr[] = { 7, 15, 6, 3 };
         int n = 8;
 
-        int k = brute(n, arr);
+        // int k = brute(n, arr);
+        int k = optimal(arr, n);
         System.out.println("Minimum speed required " + k);
     }
 
@@ -21,14 +22,8 @@ public class kokoBanana {
         // speed and our time is to find the minimum speed within H
 
         // finding the maximum element
-        int max = arr[0];
-        for (int x : arr) {
-            if (x > max) {
-                max = x;
-            }
-
-        }
-        for (int i = 1; i <= max; i++) {
+        int maxElem = max(arr);
+        for (int i = 1; i <= maxElem; i++) {
             int reqtime = totalTime(arr, i);
             if (reqtime <= h) {
                 return i;
@@ -36,6 +31,18 @@ public class kokoBanana {
         }
         return -1;
     }
+
+    // function for finding the maximum element
+    public static int max(int[] arr) {
+        int max = arr[0];
+        for (int x : arr) {
+            if (x > max) {
+                max = x;
+            }
+        }
+        return max;
+    }
+
     // this function will return total time it will take with particular speed
 
     public static int totalTime(int[] arr, int speed) {
@@ -44,5 +51,31 @@ public class kokoBanana {
             totalHour += Math.ceilDiv(x, speed);
         }
         return totalHour;
+    }
+    // optimising this is simple we have range of numbers from which we have to
+    // select our answers we choose a mid speed between low (1) nad high (maximum
+    // element)
+    // then we try to trim the search space
+    // if the required time is less than our H then we discard the right search
+    // space and move towards left(high = mid-1;)
+    // if required time is more than the H then we need to incrase our speed inorder
+    // to minimise the requiredTime so we discard the left search space and move
+    // towards right(low = mid+1);
+
+    public static int optimal(int[] arr, int h) {
+        int low = 1;
+        int high = max(arr);
+        int ans = -1;
+        while (low <= high) {
+            int mid = (high + low) / 2;
+            int reqTime = totalTime(arr, mid);
+            if (reqTime <= h) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
     }
 }
