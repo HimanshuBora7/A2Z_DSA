@@ -58,7 +58,8 @@ public class kokoBanana {
     // then we try to trim the search space
     // if the required time is less than our H then we discard the right search
     // space and move towards left(high = mid-1;)
-    // if required time is more than the H then we need to incrase our speed inorder
+    // if required time is more than the H then we need to increase our speed
+    // inorder
     // to minimise the requiredTime so we discard the left search space and move
     // towards right(low = mid+1);
 
