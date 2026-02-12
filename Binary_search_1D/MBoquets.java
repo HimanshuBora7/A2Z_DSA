@@ -3,13 +3,14 @@ package Binary_search_1D;
 
 public class MBoquets {
     public static void main(String[] args) {
-        int[] arr = { 97, 83 };
-        int m = 2;
+        int[] arr = { 1, 10, 3, 10, 2 };
+        int m = 3;
         int k = 1;
 
-        int ans = brute(arr, m, k);
+        // int ans = brute(arr, m, k);
+        int ans = optimal(arr, m, k);
         if (ans == -1)
-            System.out.println("ot possible");
+            System.out.println("not possible");
         else
             System.out.println("minimum number of days required :" + ans);
     }
@@ -58,5 +59,48 @@ public class MBoquets {
         }
         return -1;
     }
+    // the logic for optimal solution of this using binary search is simple
+    // we have range of possible answers and we can set minimum from the array as
+    // low
+    // and the maximum from the array as high
+    // we find the mid and check if it is possible to form a boquet or not
+    // if it is not possible that means we require more days so we trime down the
+    // left search space by setting low as mid+1;
+    // if it comes out that it is possible to form a boquet at mid then we try to
+    // tirm down the right search space as we have to find the minimum days
 
+    public static int optimal(int[] arr, int m, int k) {
+        if (arr.length - 1 < (m * k)) {
+            return -1;
+        }
+
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (int x : arr) {
+            if (x < min) {
+                min = x;
+            } else if (x > max) {
+                max = x;
+            }
+        }
+
+        int low = min;
+        int high = max;
+        int minDays = Integer.MAX_VALUE;
+        while (low <= high) {
+            int mid = (high + low) / 2;
+
+            if (possible(arr, mid, m, k) == true) {
+                // we try to trim down the right search space in order to find minimum
+                if (mid <= minDays) {
+                    minDays = mid;
+                    high = mid - 1;
+                }
+
+            } else {
+                low = mid + 1;
+            }
+        }
+        return minDays;
+    }
 }
