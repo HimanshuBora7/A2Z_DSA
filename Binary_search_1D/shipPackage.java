@@ -7,8 +7,9 @@ public class shipPackage {
         int days = 5;
 
         int ans = brute(arr, days);
-
-        System.out.println("answer " + ans);
+        int ans1 = optimal(arr, days);
+        System.out.println("answer by brute force " + ans);
+        System.out.println("answer by optimal approach " + ans1);
     }
 
     public static int brute(int[] arr, int days) {
@@ -58,27 +59,38 @@ public class shipPackage {
     // optimising this is simple we have range of answers we have to find the least
     // capacity
 
-    // public static int optimal(int[] weights, int days) {
-    // int max = Integer.MIN_VALUE;
-    // int sum = 0;
-    // for (int x : weights) {
-    // if (x > max) {
+    public static int optimal(int[] weights, int days) {
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        for (int x : weights) {
+            if (x > max) {
 
-    // max = x;
-    // }
-    // sum += x;
-    // }
+                max = x;
+            }
+            sum += x;
+        }
 
-    // int low = max;
-    // int high = sum;
+        int low = max;
+        int high = sum;
+        int minCap = Integer.MAX_VALUE;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            // if the days required for a given capacity is exceeding more then we have to
+            // increase the capacity thus we discard the left search space
+            // if the days required are within our constraint then we have to eliminate the
+            // right search space in order to find the least capacity
+            int daysRequired = daysReq(weights, mid);
+            if (daysRequired > days) {
+                low = mid + 1;
+            }
 
-    // while (low <= high) {
-    // int mid = (low + high) / 2;
-    // // if
-    // int daysRequired = daysReq(weights, mid);
-    // if (daysRequired > days) {
-
-    // }
-    // }
-    // }
+            else {
+                if (mid < minCap) {
+                    minCap = mid;
+                }
+                high = mid - 1;
+            }
+        }
+        return minCap;
+    }
 }
