@@ -6,11 +6,17 @@ public class smallestDivisor {
         int[] arr = { 8, 4, 2, 3 };
         int k = 10;
         int result = brute(arr, k);
+        int result2 = optimal(arr, k);
 
         if (result == -1)
             System.out.println("result not found ");
         else
-            System.out.println("Answer is " + result);
+            System.out.println("Answer is (brute force) " + result);
+
+        if (result2 == -1)
+            System.out.println("result not found ");
+        else
+            System.out.println("Answer is (optimal) " + result);
     }
 
     // brute force is simple we know the answer can lie between only 1 and the
@@ -38,8 +44,39 @@ public class smallestDivisor {
         return -1;
     }
 
-    // public static int optimal (int n ,int [] arr , int k ){
+    public static int optimal(int[] arr, int k) {
 
-    // // for optimal approach we have range of answers and we have to find the sm
-    // }
+        // for optimal approach we have range of answers and we have to find the
+        // smallest answer
+
+        int max = Integer.MIN_VALUE;
+        for (int x : arr) {
+            if (x > max) {
+                max = x;
+            }
+        }
+
+        int low = 1;
+        int high = max;
+        int ans = -1;
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            int sum = 0;
+
+            for (int x : arr) {
+                sum += Math.ceilDiv(x, mid);
+            }
+            if (sum <= k) {
+                ans = mid;
+
+                // right search space will be trimmed down as we need minimum value of divisor
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
 }
