@@ -8,7 +8,8 @@ public class KthMissingnum {
         int k = 4;
 
         // int ans = brute(arr, k);
-        int ans = brute1(arr, k);
+        // int ans = brute1(arr, k);
+        int ans = optimal(arr, k);
         System.out.println(k + " th missing number from the array is " + ans);
     }
 
@@ -46,5 +47,22 @@ public class KthMissingnum {
             }
         }
         return ans;
+    }
+
+    public static int optimal(int[] arr, int k) {
+        int low = 0;
+        int high = arr.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int missing = arr[mid] - (mid + 1);
+            if (missing < k) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+
+        }
+        return k + high;
     }
 }
