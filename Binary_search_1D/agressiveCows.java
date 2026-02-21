@@ -10,7 +10,8 @@ public class agressiveCows {
 
         int k = 2;
 
-        int ans = brute(arr, k);
+        // int ans = brute(arr, k);
+        int ans = optimalApproach(arr, k);
         System.out.println("maximum minimum possible distance is " + ans);
     }
     // brute force approach is simple first we sort the array as it will then
@@ -59,5 +60,36 @@ public class agressiveCows {
             }
         }
         return false;
+    }
+
+    // optimised approach is simple we have range of answers
+    // we set low at 1 and high at max-min
+    // find out mid check if it is possible to place cows with mid as distance
+    // between them
+    // if not trim down the right search space by placing high as mid -1
+    // if it is possible to place the cow with mid then we trim down the left search
+    // space as we have to find the maximum possible distance
+
+    public static int optimalApproach(int[] arr, int k) {
+
+        Arrays.sort(arr);
+        int min = arr[0];
+        int max = arr[arr.length - 1];
+
+        int low = min;
+        int high = max;
+
+        int ans = -1;
+        while (low <= high) {
+            int mid = (high + low) / 2;
+
+            if (cowsPlaced(arr, k, mid) == true) {
+                ans = mid;
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return ans;
     }
 }
