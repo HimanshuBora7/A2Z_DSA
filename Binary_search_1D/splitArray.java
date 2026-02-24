@@ -27,7 +27,7 @@ public class splitArray {
 
         for (int i = low; i <= high; i++) {
 
-            if (partionCount(arr, i) == k) {
+            if (partionCount(arr, i) <= k) {
                 return i;
             }
         }
