@@ -48,15 +48,34 @@ public class LL02 {
         return head;
     }
 
+    private static void deleteTail(Node head) {
+        if (head.next == null || head == null) {
+            System.out.println("noting to delete");
+            return;
+        }
+        Node mover = head;
+        Node preMover = head;
+
+        while (mover.next != null) {
+            preMover = mover;
+            mover = mover.next;
+
+        }
+        System.out.println("deleted tail" + mover.data);
+        preMover.next = null;
+    }
+
     public static void main(String[] args) {
         int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
         Node head1 = convertToLL(arr);
 
-        System.out.println(head1.data);
+        // System.out.println(head1.data);
         traversalLL(head1);
 
-        Node head2 = deleteHead(head1);
-        System.out.println(head2.data);
-        traversalLL(head2);
+        // Node head2 = deleteHead(head1);
+        // System.out.println(head2.data);
+        // traversalLL(head2);
+        deleteTail(head1);
+        traversalLL(head1);
     }
 }
