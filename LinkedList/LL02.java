@@ -54,15 +54,45 @@ public class LL02 {
             return;
         }
         Node mover = head;
-        Node preMover = head;
 
-        while (mover.next != null) {
-            preMover = mover;
+        while (mover.next.next != null) {
             mover = mover.next;
 
         }
-        System.out.println("deleted tail" + mover.data);
-        preMover.next = null;
+        System.out.println("deleted tail" + mover.next.data);
+        mover.next = null;
+    }
+
+    private static void deleteKthElem(Node head, int k) {
+        // assuming Kth element is not the first or last element of the linked list
+        int count = 1;
+        Node mover = head;
+        Node temp = mover;
+        while (count != k) {
+            temp = mover;
+            mover = mover.next;
+            count++;
+        }
+        temp.next = mover.next;
+        System.out.println("removed " + mover.data);
+        mover.next = null;
+
+    }
+
+    // deleting a node with specific value
+
+    private static void delelteVal(Node head, int k) {
+        Node mover = head;
+        Node temp = null;
+        while (mover.data != k) {
+            temp = mover;
+            mover = mover.next;
+        }
+        if (mover != null) {
+            temp.next = mover.next;
+            System.out.println("deleted " + mover.data);
+            mover.next = null;
+        }
     }
 
     public static void main(String[] args) {
@@ -70,12 +100,16 @@ public class LL02 {
         Node head1 = convertToLL(arr);
 
         // System.out.println(head1.data);
-        traversalLL(head1);
+        // traversalLL(head1);
 
         // Node head2 = deleteHead(head1);
         // System.out.println(head2.data);
         // traversalLL(head2);
-        deleteTail(head1);
+        // deleteTail(head1);
+
+        // deleteKthElem(head1, 5);
+        delelteVal(head1, 17);
         traversalLL(head1);
+
     }
 }
