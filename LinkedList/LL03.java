@@ -46,6 +46,31 @@ public class LL03 {
 
     }
 
+    private static Node insertAtKthLocation(Node head, int val, int k) {
+        if (k == 1) {
+            Node newHead = new Node(val);
+
+            newHead.next = head;
+            return newHead;
+
+        }
+        int count = 1;
+        Node mover = head;
+
+        while (count < k - 1 && mover != null) {
+            mover = mover.next;
+
+            count++;
+        }
+        if (mover != null) {
+            Node newNode = new Node(val);
+            newNode.next = mover.next;
+            mover.next = newNode;
+        }
+
+        return head;
+    }
+
     public static void main(String[] args) {
         int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
         Node head1 = convertToLL(arr);
